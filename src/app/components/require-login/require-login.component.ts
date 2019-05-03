@@ -12,7 +12,7 @@ export class RequireLoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //window.location.replace(this.url);
+    window.location.replace(this.url);
   }
 
 }

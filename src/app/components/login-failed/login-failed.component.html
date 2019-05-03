@@ -1,11 +1,13 @@
-<div class="container">
-  <mat-card>
-    <mat-card-title>Erreur de connexion</mat-card-title>
-    <mat-card-content>
-      <p>Une erreur s'est produite lors de votre connexion. Merci de réessayer</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-flat-button [routerLink]="['/', 'require-login']">Réessayer</a>
-    </mat-card-actions>
-  </mat-card>
+<div fxLayout fxLayoutAlign="center" style="margin-top: 25px;">
+  <div fxFlex="1 1 95%" fxFlexAlign="center">
+    <mat-card>
+      <mat-card-title>Erreur de connexion</mat-card-title>
+      <mat-card-content>
+        <p>Une erreur s'est produite lors de votre connexion. Merci de réessayer</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-flat-button [routerLink]="['/', 'require-login']">Réessayer</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

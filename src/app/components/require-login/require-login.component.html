@@ -1,14 +1,16 @@
-<div class="container">
-  <mat-card>
-    <mat-card-title>Connexion en cours...</mat-card-title>
-    <mat-card-content>
-      <p>Vous allez être redirigé vers la page de connexion, merci de patienter...</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-flat-button [href]="url">Je ne suis pas redirigé</a>
-    </mat-card-actions>
-    <mat-card-footer>
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </mat-card-footer>
-  </mat-card>
+<div fxLayout fxLayoutAlign="center" style="margin-top: 25px;">
+  <div fxFlex="1 1 95%" fxFlexAlign="center">
+    <mat-card>
+      <mat-card-title>Connexion en cours...</mat-card-title>
+      <mat-card-content>
+        <p>Vous allez être redirigé vers la page de connexion, merci de patienter...</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-flat-button [href]="url">Je ne suis pas redirigé</a>
+      </mat-card-actions>
+      <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
 </div>
