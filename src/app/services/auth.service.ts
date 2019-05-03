@@ -1,18 +1,18 @@
-import {Injectable, Optional} from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import {BackendService} from './backend.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {Router} from '@angular/router';
-import {environment} from '../../environments/environment';
+import {Router, UrlTree} from '@angular/router';
 import {UserSession} from './auth.module';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
 
-  constructor(private backend: BackendService, private jwtHelper: JwtHelperService, private route: Router) {
+  constructor(private jwtHelper: JwtHelperService, private route: Router) {
   }
 
-  login(token: string) {
+  login(token: string): UrlTree {
     localStorage.setItem('id_token', token);
     let act = this.loadNextAction();
 
@@ -20,7 +20,7 @@ export class AuthService {
       act = '/';
     }
 
-    this.route.navigate([act]);
+    return this.route.createUrlTree([act]);
   }
 
   requiresLogin(redirectTo: string): boolean {
@@ -28,10 +28,15 @@ export class AuthService {
       return true;
     } else {
       this.storeNextAction(redirectTo);
-      this.route.navigateByUrl(environment.auth.apiurl + '/login?app=' + environment.auth.clientId);
-
       return false;
     }
+  }
+
+  requiresGroup(redirectTo: string, group: string): boolean {
+    if (this.requiresLogin(redirectTo)) {
+      return this.hasGroup(group);
+    }
+    return false;
   }
 
   private storeNextAction(action: string) {
@@ -63,10 +68,8 @@ export class AuthService {
 
   public hasGroup(group: string): boolean {
     const token = this.getToken();
-    if (this.isAuthenticated() && token && token.user && token.user.groups) {
-      const groups: string[] = token.user.groups;
-
-      return groups.indexOf(group) !== -1;
+    if (this.isAuthenticated() && token) {
+      return token.groups.indexOf(group) !== -1;
     } else {
       return false;
     }
@@ -74,6 +77,7 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('id_token');
+
     if (token === null) {
       return false;
     }
@@ -81,6 +85,7 @@ export class AuthService {
     try {
       return !this.jwtHelper.isTokenExpired(token);
     } catch (e) {
+      console.log(e);
       return false;
     }
   }
