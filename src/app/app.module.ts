@@ -9,7 +9,7 @@ import {
   MatToolbarModule,
   MatProgressBarModule,
   MatExpansionModule,
-  MatChipsModule, MatFormFieldModule, MatListModule
+  MatChipsModule, MatFormFieldModule, MatListModule, MatBadgeModule, MatIconModule
 } from '@angular/material';
 import {HomeComponent} from './components/home/home.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -20,13 +20,19 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './services/login.service';
 import { LoginFailedComponent } from './components/login-failed/login-failed.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { RequestStatePipe } from './pipes/request-state.pipe';
+import {AccredStatePipe} from './pipes/accred-state.pipe';
+import {RequestStateDescriptionPipe} from './pipes/request-state-description.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RequireLoginComponent,
-    LoginFailedComponent
+    LoginFailedComponent,
+    RequestStatePipe,
+    RequestStateDescriptionPipe,
+    AccredStatePipe
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatChipsModule,
     MatFormFieldModule,
     MatListModule,
+    MatBadgeModule,
+    MatIconModule,
     HttpClientModule,
     FlexLayoutModule,
 
@@ -48,7 +56,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
       }
     }),
 
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

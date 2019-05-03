@@ -5,75 +5,51 @@
     <mat-card-content style="padding-top: 10px;">
       <mat-accordion class="headers-align">
 
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let req of requests">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Autorisation de parking
+              <span>{{req[1].name}}
+              </span>
             </mat-panel-title>
             <mat-panel-description>
-              3 autorisations accordées, 2 validées
+              <span>
+                {{req[0].state | requestState:req[3]}}
+
+                <mat-icon color="warn" inline="true" *ngIf="req[0].state === RequestState.REQUESTED_CHANGES">error_outline</mat-icon>
+              </span>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <p>This is the primary content of the panel.</p>
+          <p>{{req[0].state | requestStateDescription}}</p>
+
+          <mat-accordion class="headers-align">
+
+            <mat-expansion-panel *ngFor="let accred of req[3]">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{accred[1].name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{accred[0].state | accredState}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <p>Blep</p>
+
+              <mat-action-row>
+                <button mat-button>Accéder à l'accréditation</button>
+              </mat-action-row>
+
+            </mat-expansion-panel>
+
+          </mat-accordion>
+
+          <mat-action-row>
+            <button mat-button>Accéder à la demande</button>
+          </mat-action-row>
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Accréditation presse
-            </mat-panel-title>
-            <mat-panel-description>
-              En attente
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <p>This is the primary content of the panel.</p>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Accréditation presse
-            </mat-panel-title>
-            <mat-panel-description>
-              Refusée
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <p>This is the primary content of the panel.</p>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Billet gold
-            </mat-panel-title>
-            <mat-panel-description>
-              1 autorisation accordée
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <p>This is the primary content of the panel.</p>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Accréditation presse
-            </mat-panel-title>
-            <mat-panel-description>
-              Brouillon
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <p>This is the primary content of the panel.</p>
-
-        </mat-expansion-panel>
       </mat-accordion>
     </mat-card-content>
   </mat-card>
@@ -84,22 +60,10 @@
 
       <mat-nav-list>
 
-        <a mat-list-item href="...">
-          <h3 matLine>Accréditation presse</h3>
+        <a mat-list-item href="..." *ngFor="let type of requestTypes">
+          <h3 matLine>{{type[0].name}}</h3>
           <p matLine>
-            <span>Pour obtenir une autorisation pour couvrir notre événement</span>
-          </p>
-        </a>
-        <a mat-list-item href="...">
-          <h3 matLine>Autorisation de parking exposant</h3>
-          <p matLine>
-            <span>Pour obtenir une autorisation pour vous garer à proximité des entrées lors de l'événement</span>
-          </p>
-        </a>
-        <a mat-list-item href="...">
-          <h3 matLine>Bracelets supplémentaires</h3>
-          <p matLine>
-            <span>Pour obtenir des bracelets supplémentaires pour les staffs de votre stand</span>
+            <span>{{type[0].shortDescription}}</span>
           </p>
         </a>
       </mat-nav-list>
