@@ -28,9 +28,6 @@ export class BackendService {
         const ed: Edition = EDITIONS_MAP.get(t.edition);
         const accreds: [Accred, AccredType][] = ACCREDS.filter(a => a.requestId === r.id)
           .map(a => [a, ACCRED_TYPES_MAP.get(a.accredType)] as [Accred, AccredType]);
-      console.log(accreds);
-      console.log(ACCREDS.filter(a => a.requestId === r.id));
-      console.log(ACCREDS);
 
         return [r, t, ed, accreds] as [Request, RequestType, Edition, [Accred, AccredType][]];
       }
@@ -38,10 +35,4 @@ export class BackendService {
   }
 }
 
-export class RequestTypeAndEdition {
-  type: RequestType;
-  edition: Edition;
-
-
-}
 
